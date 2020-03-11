@@ -16,7 +16,7 @@ namespace ConsoleApp1.Strategies
             foreach (var keyValuePair in attractionPayoffMap)
             {
                 var distance = Math.Sqrt(Math.Pow(lastAttractionVisited.Location.X - keyValuePair.Key.Location.X, 2) + Math.Pow(lastAttractionVisited.Location.Y - keyValuePair.Key.Location.Y, 2));
-                var distanceRelativeToMax = distance / maxDistance;
+                var distanceRelativeToMax = distance / maxDistance * 0.5;
                 var modifiedPayoff = keyValuePair.Value * (1 - distanceRelativeToMax);
 
                 modifiedAttractionPayoffMap.Add(keyValuePair.Key, modifiedPayoff);
