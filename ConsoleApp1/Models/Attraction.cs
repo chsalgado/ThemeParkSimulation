@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 
 namespace ConsoleApp1.Models
@@ -23,5 +24,7 @@ namespace ConsoleApp1.Models
         public int PopularityRank { get; set; }
 
         public AttractionCategory AttractionCategory { get; set; }
+
+        public Point Location { get; set; }
     }
 }

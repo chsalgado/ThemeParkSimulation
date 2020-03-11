@@ -7,6 +7,6 @@ namespace ConsoleApp1.Strategies
 {
     public interface IVisitorStrategy
     {
-        Attraction GetNextAttraction(ThemePark themePark, IDictionary<Attraction, int> attractionPayoffMap);
+        Attraction GetNextAttraction(ThemePark themePark, IDictionary<Attraction, double> attractionPayoffMap, Attraction lastAttractionVisited);
     }
 }

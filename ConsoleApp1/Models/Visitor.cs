@@ -8,11 +8,11 @@ namespace ConsoleApp1.Models
 {
     public class Visitor
     {
-        public int AccruedPayoff { get; set; }
+        public double AccruedPayoff { get; set; }
 
-        public IDictionary<Attraction, int> AttractionPayoffMap { get; set; }
+        public IDictionary<Attraction, double> AttractionPayoffMap { get; set; }
 
-        public IDictionary<IncentiveType, int> IncentivePayoffMap { get; set; }
+        public IDictionary<IncentiveType, double> IncentivePayoffMap { get; set; }
 
         // Like most, like, like less, do not like
         public AttractionCategory[] AttractionCategoriesPreferences { get; set; }
@@ -48,7 +48,7 @@ namespace ConsoleApp1.Models
             TimeLeftInAttraction = attraction.RideTime;
 
             // decrease payoff for attraction (no one gets into the same attraction a lot of times)
-            this.AttractionPayoffMap[attraction] = attractionPayoff / 2;
+            this.AttractionPayoffMap[attraction] = attractionPayoff / 2.0;
         }
 
         public void DecreaseTimeLeftInAttraction(int decreaseFactor)
