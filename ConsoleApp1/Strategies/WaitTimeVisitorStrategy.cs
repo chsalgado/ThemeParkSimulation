@@ -6,18 +6,17 @@ using System.Linq;
 
 namespace ConsoleApp1.Strategies
 {
-    public class DistanceVisitorStrategy : IVisitorStrategy
+    public class WaitTimeVisitorStrategy : IVisitorStrategy
     {
         public Attraction GetNextAttraction(ThemePark themePark, IDictionary<Attraction, double> attractionPayoffMap, Attraction lastAttractionVisited)
         {
             IDictionary<Attraction, double> modifiedAttractionPayoffMap = new Dictionary<Attraction, double>();
-            double maxDistance = Math.Sqrt(Math.Pow(themePark.Attractions[0].Length - 1 - 0, 2) + Math.Pow(themePark.Attractions.Length - 1 - 0, 2));
+            double maxWaitTime = (double)modifiedAttractionPayoffMap.Aggregate((l, r) => l.Key.EstimatedWaitTime > r.Key.EstimatedWaitTime ? l : r).Key.EstimatedWaitTime;
             
             foreach (var keyValuePair in attractionPayoffMap)
             {
-                var distance = Math.Sqrt(Math.Pow(lastAttractionVisited.Location.X - keyValuePair.Key.Location.X, 2) + Math.Pow(lastAttractionVisited.Location.Y - keyValuePair.Key.Location.Y, 2));
-                var distanceRelativeToMax = distance / maxDistance * 0.5;
-                var modifiedPayoff = keyValuePair.Value * (1.0 - distanceRelativeToMax);
+                var waitTimeRelativeToMax = (double)keyValuePair.Key.EstimatedWaitTime / (double)maxWaitTime * 0.5;
+                var modifiedPayoff = keyValuePair.Value * (1.0 - waitTimeRelativeToMax);
 
                 modifiedAttractionPayoffMap.Add(keyValuePair.Key, modifiedPayoff);
             }

@@ -10,16 +10,22 @@ namespace ConsoleApp1.Models
         public int Capacity { get; set; }
 
         /// <summary>
-        /// Ride time in seconds
+        /// Ride time in minutes
         /// </summary>
         public int RideTime { get; set; }
 
         public Queue<Visitor> VisitorsQueue { get; set; }
 
         /// <summary>
-        /// Estimated wait time in seconds
+        /// Estimated wait time in minutes
         /// </summary>
-        public int EstimatedWaitTime { get; }
+        public int EstimatedWaitTime 
+        {
+            get
+            {
+                return (int)Math.Ceiling((double)VisitorsQueue.Count / (double)Capacity) * RideTime;
+            } 
+        }
 
         public int PopularityRank { get; set; }
 
