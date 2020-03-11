@@ -6,22 +6,22 @@ namespace ConsoleApp1.Models
 {
     public class Attraction
     {
-        int Capacity { get; set; }
+        public int Capacity { get; set; }
 
         /// <summary>
         /// Ride time in seconds
         /// </summary>
-        int RideTime { get; set; }
+        public int RideTime { get; set; }
 
-        Queue<Visitor> VisitorsQueue { get; set; }
+        public Queue<Visitor> VisitorsQueue { get; set; }
 
         /// <summary>
         /// Estimated wait time in seconds
         /// </summary>
-        int EstimatedWaitTime { get; }
+        public int EstimatedWaitTime { get; }
 
-        int PopularityRank { get; set; }
+        public int PopularityRank { get; set; }
 
-        AttractionCategory AttractionCategory { get; set; }
+        public AttractionCategory AttractionCategory { get; set; }
     }
 }

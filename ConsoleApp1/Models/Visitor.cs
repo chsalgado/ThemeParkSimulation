@@ -11,12 +11,15 @@ namespace ConsoleApp1.Models
         public int AccruedPayoff { get; set; }
 
         public IDictionary<Attraction, int> AttractionPayoffMap { get; set; }
+
         public IDictionary<IncentiveType, int> IncentivePayoffMap { get; set; }
 
         // Like most, like, like less, do not like
         public AttractionCategory[] AttractionCategoriesPreferences { get; set; }
 
         public IVisitorStrategy VisitorStrategy { get; set; }
+
+        private int TimeLeftInAttraction { get; set; }
 
         public void Init()
         {
@@ -34,11 +37,28 @@ namespace ConsoleApp1.Models
             return true;
         }
 
-        public void GetIntoAttraction()
+        public void GetIntoAttraction(Attraction attraction)
         {
+            var attractionPayoff = this.AttractionPayoffMap[attraction];
+
             // increase payoff
+            this.AccruedPayoff += attractionPayoff;
+
             // cannot enqueue for rideTime
+            TimeLeftInAttraction = attraction.RideTime;
+
             // decrease payoff for attraction (no one gets into the same attraction a lot of times)
+            this.AttractionPayoffMap[attraction] = attractionPayoff / 2;
+        }
+
+        public void DecreaseTimeLeftInAttraction(int decreaseFactor)
+        {
+            TimeLeftInAttraction = Math.Max(0, TimeLeftInAttraction - decreaseFactor);
+        }
+
+        public bool IsCurrentlyInAttraction()
+        {
+            return TimeLeftInAttraction > 0;
         }
     }
 }
