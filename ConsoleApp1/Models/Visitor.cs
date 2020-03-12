@@ -46,7 +46,7 @@ namespace ConsoleApp1.Models
 
         public Point Location { get; set; }
 
-        public void Init(List<Attraction> attractions)
+        public void Init(IEnumerable<Attraction> attractions)
         {
             // Fill category preferences
             var attractionCategories = ATTRACTION_CATEGORIES.OrderBy(a => randomizer.NextDouble()).ToList();
