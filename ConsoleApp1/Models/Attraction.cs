@@ -40,7 +40,7 @@ namespace ConsoleApp1.Models
 
         public bool CanTakeVisitors(int elapsedMinutes)
         {
-            return true;
+            return elapsedMinutes % this.RideTime == 0;
         }
     }
 }
