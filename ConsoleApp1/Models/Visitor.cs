@@ -1,6 +1,7 @@
 ﻿using ConsoleApp1.Strategies;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 
@@ -21,11 +22,16 @@ namespace ConsoleApp1.Models
 
         private int TimeLeftInAttraction { get; set; }
 
+        public Attraction CurrentAttraction { get; set; }
+
+        public Point Location { get; set; }
+
         public void Init()
         {
             // Fill category preferences
             // Fill payoff maps
             // Get an IVisitorStrategy
+            // Set Location to 0, 0
         }
 
         public bool AcceptIncentive(Incentive incentive)
@@ -39,6 +45,9 @@ namespace ConsoleApp1.Models
 
         public void GetIntoAttraction(Attraction attraction)
         {
+            this.CurrentAttraction = attraction;
+            this.Location = attraction.Location;
+
             var attractionPayoff = this.AttractionPayoffMap[attraction];
 
             // increase payoff
@@ -54,11 +63,16 @@ namespace ConsoleApp1.Models
         public void DecreaseTimeLeftInAttraction(int decreaseFactor)
         {
             TimeLeftInAttraction = Math.Max(0, TimeLeftInAttraction - decreaseFactor);
+
+            if (TimeLeftInAttraction == 0)
+            {
+                this.CurrentAttraction = null;
+            }
         }
 
         public bool IsCurrentlyInAttraction()
         {
-            return TimeLeftInAttraction > 0;
+            return CurrentAttraction != null;
         }
     }
 }
