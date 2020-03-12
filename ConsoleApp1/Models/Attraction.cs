@@ -37,5 +37,10 @@ namespace ConsoleApp1.Models
         {
             this.VisitorsQueue = new Queue<Visitor>();
         }
+
+        public bool CanTakeVisitors(int elapsedMinutes)
+        {
+            return true;
+        }
     }
 }
