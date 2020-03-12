@@ -27,6 +27,8 @@ namespace ConsoleApp1.Models
 
         private Random randomizer = new Random();
 
+        private Attraction lastAttractionVisited = null;
+
         public double AccruedPayoff { get; set; }
 
         public IDictionary<Attraction, double> AttractionPayoffMap { get; set; }
@@ -106,9 +108,16 @@ namespace ConsoleApp1.Models
 
             if (TimeLeftInAttraction == 0)
             {
+                this.lastAttractionVisited = CurrentAttraction;
                 this.CurrentAttraction = null;
             }
         }
+
+        public Attraction GetNextAttraction(ThemePark themePark)
+        {
+            return VisitorStrategy.GetNextAttraction(themePark, AttractionPayoffMap, lastAttractionVisited);
+        }
+
 
         public bool IsCurrentlyInAttraction()
         {
