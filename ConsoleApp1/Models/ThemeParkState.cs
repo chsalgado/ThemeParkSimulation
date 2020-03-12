@@ -34,42 +34,40 @@ namespace ConsoleApp1.Models
             // shuffle the order of visitors
             themePark.Visitors = themePark.Visitors.OrderBy(v => randomizer.Next()).ToList();
 
-            // for each visitor, choose the next attraction if he is not in one 
+            // for each visitor,
             foreach (var visitor in themePark.Visitors)
             {
                 if (!visitor.IsCurrentlyInAttraction())
                 {
+                    // choose the next attraction if he is not in one 
                     var nextAttraction = visitor.GetNextAttraction(themePark);
                     nextAttraction.VisitorsQueue.Enqueue(visitor);
+                }
+                else 
+                {
+                    // decrease the time left if he is in an attraction
+                    // if he is in the queue, this shouldn't do anything
+                    visitor.DecreaseTimeLeftInAttraction(1);
                 }
 
             }
 
-            // when to call DecreaseTimeLeftInAttraction
+            // somehow, we get the incentives, and pass it to the visitors in some way
 
             // for each attraction, first n visitors in line get to enjoy it
             foreach (var attraction in themePark.Attractions)
             {
                 // if can take more visitors
-
-                for (int i = 0; i < attraction.Capacity; i++)
+                if (attraction.CanTakeVisitors(currentTime))
                 {
-                    if (attraction.VisitorsQueue.Count() == 0) break;
-                    var visitor = attraction.VisitorsQueue.Dequeue();
-                    visitor.GetIntoAttraction(attraction);
+                    for (int i = 0; i < attraction.Capacity; i++)
+                    {
+                        if (attraction.VisitorsQueue.Count() == 0) break;
+                        var visitor = attraction.VisitorsQueue.Dequeue();
+                        visitor.GetIntoAttraction(attraction);
+                    }
                 }
             }
-
-            // get the queue he is in, if any
-            // get incentive offered for each attractions.
-            // feed all these information to the visitor to decide
-            // collect the decision of visitor
-
-            // for each decision make by the visitor, update the state
-            // update the queue
-            // update the position
-            // update the payoff for each attraction
-            // update the total payoff earned
         }
     }
 }
