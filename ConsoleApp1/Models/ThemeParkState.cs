@@ -1,63 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ConsoleApp1.Models
 {
     public class ThemeParkState
     {
-        private Dictionary<Tuple<int, int>, Attraction> attractions;
-        private Dictionary<Attraction, Queue<IVisitor>> attractionQueues;
-        private List<IVisitor> visitors;
-        private Dictionary<IVisitor, Queue<IVisitor>> visitorQueueMap;
-        private Dictionary<IVisitor, Tuple<int, int>> visitorLocations;
-        private Dictionary<IVisitor, Dictionary<Attraction, double>> visitorAttractionPayoffs;
-        private Dictionary<IVisitor, Dictionary<IncentiveType, double>> visitorIncentivePayoffs;
+        private ThemePark themePark;
 
         public ThemeParkState()
         {
-            attractions = initAttractions();
-            attractionQueues = new Dictionary<Attraction, Queue<IVisitor>>();
-            foreach (var attraction in attractions.Values)
-            {
-                var queue = new Queue<IVisitor>();
-                attractionQueues.Add(attraction, queue);
-            }
+            themePark = new ThemePark();
+            themePark.Init();
 
-            visitors = initVisitors();
-            visitorQueueMap = new Dictionary<IVisitor, Queue<IVisitor>>();
-            visitorLocations = new Dictionary<IVisitor, Tuple<int, int>>();
-            visitorAttractionPayoffs = new Dictionary<IVisitor, Dictionary<Attraction, double>>();
-            foreach (var visitor in visitors)
-            {
-                visitorQueueMap.Add(visitor, null);
-                visitorLocations.Add(visitor, Tuple.Create(0, 0));
-                visitorAttractionPayoffs.Add(visitor, initVisitorAttractionPayoffs(visitor));
-            }
-
+            themePark.Attractions.ToList().ForEach(a => a.Init());
         }
 
-        private Dictionary<Tuple<int, int>, Attraction> initAttractions()
-        {
-            return null;
-        }
-
-        private List<IVisitor> initVisitors()
-        {
-            return null;
-        }
-
-        private Dictionary<Attraction, double> initVisitorAttractionPayoffs(IVisitor visitor)
-        {
-            return null;
-        }
-
-        private Dictionary<Attraction, Incentive> getIncentives()
+        private Dictionary<Attraction, Incentive> GetIncentives()
         {
             return null;
         }
 
         public void progressState()
         {
+            // if themePark.Vistitors.Length < themePark.Visitors
+            // add new visitors. Init()
+
             // shuffle the order of visitors
             
             // for each visitor

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Drawing;
+using System.Linq;
 
 namespace ConsoleApp1.Models
 {
@@ -9,7 +10,7 @@ namespace ConsoleApp1.Models
         /// <summary>
         /// A theme park has attractions uniformly distributed in a grid
         /// </summary>
-        public Attraction[][] Attractions { get; set; }
+        public IEnumerable<Attraction> Attractions { get; set; }
 
         public int OperationHours { get; set; }
 
@@ -18,11 +19,13 @@ namespace ConsoleApp1.Models
         /// </summary>
         public int NumberOfVisitors { get; set; }
 
-        public IEnumerable<Visitor> Visitors { get; set; }
+        public IList<Visitor> Visitors { get; set; }
 
         public int TicketPrice { get; set; }
 
         public int IncentivesBudget { get; set; }
+
+        public Point Dimensions { get; set; }
 
         public void GenerateIncentive()
         {
@@ -34,7 +37,18 @@ namespace ConsoleApp1.Models
 
         public void Init()
         {
-            // hardcode a semi realistic theme park
+            this.Attractions = AttractionList;
+            this.Dimensions = new Point(this.Attractions.Max(a => a.Location.X), this.Attractions.Max(a => a.Location.Y));
+            this.Visitors = new List<Visitor>();
         }
+
+        private static IEnumerable<Attraction> AttractionList = new List<Attraction>
+        {
+            // hardcode a semi realistic theme park
+            // for each attraction set Location to row, column
+            // this may be just an array or a list
+            new Attraction { }, 
+            new Attraction { },
+        };
     }
 }

@@ -11,7 +11,7 @@ namespace ConsoleApp1.Strategies
         public Attraction GetNextAttraction(ThemePark themePark, IDictionary<Attraction, double> attractionPayoffMap, Attraction lastAttractionVisited)
         {
             IDictionary<Attraction, double> modifiedAttractionPayoffMap = new Dictionary<Attraction, double>();
-            double maxDistance = Math.Sqrt(Math.Pow(themePark.Attractions[0].Length - 1 - 0, 2) + Math.Pow(themePark.Attractions.Length - 1 - 0, 2));
+            double maxDistance = Math.Sqrt(Math.Pow(themePark.Dimensions.X - 1 - 0, 2) + Math.Pow(themePark.Dimensions.Y - 1 - 0, 2));
             
             foreach (var keyValuePair in attractionPayoffMap)
             {

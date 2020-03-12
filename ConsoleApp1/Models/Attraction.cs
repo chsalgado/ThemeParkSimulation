@@ -32,5 +32,10 @@ namespace ConsoleApp1.Models
         public AttractionCategory AttractionCategory { get; set; }
 
         public Point Location { get; set; }
+
+        public void Init()
+        {
+            this.VisitorsQueue = new Queue<Visitor>();
+        }
     }
 }
