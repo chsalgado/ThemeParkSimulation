@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 
 namespace ConsoleApp1.Models
 {
@@ -40,7 +39,7 @@ namespace ConsoleApp1.Models
 
         public IDictionary<Attraction, double> AttractionPayoffMap { get; set; }
 
-        public IDictionary<IncentiveType, double> IncentivePayoffMap { get; set; }
+        public IDictionary<IncentiveType, double> IncentivePayoffCoefficientMap { get; set; }
 
         // Like most, like, like less, do not like
         public AttractionCategory[] AttractionCategoriesPreferences { get; set; }
@@ -74,7 +73,7 @@ namespace ConsoleApp1.Models
 
         public void Init(IEnumerable<Attraction> attractions)
         {
-            // Fill category preferences
+            // Fill attraction category preferences
             var attractionCategories = ATTRACTION_CATEGORIES.OrderBy(a => randomizer.NextDouble()).ToList();
             var payoffRangeForCategory = new Dictionary<AttractionCategory, Tuple<double, double>>();
             for (int i = 0; i < attractionCategories.Count(); i ++)
@@ -93,6 +92,13 @@ namespace ConsoleApp1.Models
                 AttractionPayoffMap[attraction] = payoff;
             }
 
+            // Fill incentive payoff coefficient maps with coefficients between 0.5 and 1.0
+            IncentivePayoffCoefficientMap = new Dictionary<IncentiveType, double> ();
+            for (int i = 0; i < INCENTIVE_TYPES.Count(); i++)
+            {
+                IncentivePayoffCoefficientMap.Add((IncentiveType)i, randomizer.NextDouble() * (1.0 - 0.5) + 0.5);
+            }
+
             // Get an IAttractionSelectionStrategy
             AttranctionSelectionStrategy = ATTRACTION_STRATEGY_CREATORS[randomizer.Next(ATTRACTION_STRATEGY_CREATORS.Count())].Invoke();
 
@@ -106,11 +112,17 @@ namespace ConsoleApp1.Models
         }
 
         public bool AcceptIncentive(Incentive incentive)
-        {
-            // dequeue
-            // queue into new attraction
-            // get some payoff
+        {   
+            // Dequeue from current attraction and go to next one
+            this.CurrentAttraction.VisitorsQueue.Remove(this);
+            this.EnqueueInAttraction(incentive.AssociatedAttraction);
+
+            // Get incentivePayoff
+            this.AccruedPayoff += this.IncentivePayoffCoefficientMap[incentive.IncentiveType] * incentive.RetailValue;
+            
             // decrease payoff for incentive (i may be happy with one plushie, but the second one makes me less happy)
+            this.IncentivePayoffCoefficientMap[incentive.IncentiveType] = this.IncentivePayoffCoefficientMap[incentive.IncentiveType] / 2.0;
+
             return true;
         }
 
@@ -130,7 +142,7 @@ namespace ConsoleApp1.Models
             this.AccruedPayoff += attractionPayoff;
 
             // cannot enqueue for rideTime
-            TimeLeftInAttraction = attraction.RideTime;
+            this.TimeLeftInAttraction = attraction.RideTime;
 
             // decrease payoff for attraction (no one gets into the same attraction a lot of times)
             this.AttractionPayoffMap[attraction] = attractionPayoff / 2.0;

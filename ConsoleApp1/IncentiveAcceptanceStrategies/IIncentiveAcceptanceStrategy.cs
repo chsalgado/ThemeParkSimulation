@@ -7,6 +7,6 @@ namespace ConsoleApp1.Strategies
 {
     public interface IIncentiveAcceptanceStrategy
     {
-        bool IsIncentiveAccepted(Incentive incentive, Attraction currentAttraction, double currentWaitingTime, IDictionary<IncentiveType, double> incentivePayoffMap, IDictionary<Attraction, double> attractionPayoffMap);
+        bool IsIncentiveAccepted(Incentive incentive, Attraction currentAttraction, double currentWaitingTime, IDictionary<IncentiveType, double> incentivePayoffCoefficientMap, IDictionary<Attraction, double> attractionPayoffMap);
     }
 }
