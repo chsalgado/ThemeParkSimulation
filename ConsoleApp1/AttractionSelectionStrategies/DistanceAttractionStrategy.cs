@@ -8,14 +8,14 @@ namespace ConsoleApp1.Strategies
 {
     public class DistanceAttractionStrategy : IAttractionSelectionStrategy
     {
-        public Attraction GetNextAttraction(ThemePark themePark, IDictionary<Attraction, double> attractionPayoffMap, Attraction lastAttractionVisited)
+        public Attraction GetNextAttraction(ThemePark themePark, IDictionary<Attraction, double> attractionPayoffMap, Point lastLocation)
         {
             IDictionary<Attraction, double> modifiedAttractionPayoffMap = new Dictionary<Attraction, double>();
             double maxDistance = Math.Sqrt(Math.Pow(themePark.Dimensions.X - 1 - 0, 2) + Math.Pow(themePark.Dimensions.Y - 1 - 0, 2));
             
             foreach (var keyValuePair in attractionPayoffMap)
             {
-                var distance = Math.Sqrt(Math.Pow(lastAttractionVisited.Location.X - keyValuePair.Key.Location.X, 2) + Math.Pow(lastAttractionVisited.Location.Y - keyValuePair.Key.Location.Y, 2));
+                var distance = Math.Sqrt(Math.Pow(lastLocation.X - keyValuePair.Key.Location.X, 2) + Math.Pow(lastLocation.Y - keyValuePair.Key.Location.Y, 2));
                 var distanceRelativeToMax = distance / maxDistance * 0.5;
                 var modifiedPayoff = keyValuePair.Value * (1.0 - distanceRelativeToMax);
 

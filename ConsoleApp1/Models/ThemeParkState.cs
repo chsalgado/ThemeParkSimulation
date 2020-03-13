@@ -50,7 +50,7 @@ namespace ConsoleApp1.Models
                 {
                     // choose the next attraction if he is not in one 
                     var nextAttraction = visitor.GetNextAttraction(themePark);
-                    nextAttraction.VisitorsQueue.Add(visitor);
+                    visitor.EnqueueInAttraction(nextAttraction);
                 }
                 else
                 {
@@ -63,26 +63,8 @@ namespace ConsoleApp1.Models
 
             // somehow, we get the incentives, and pass it to the visitors in some way
 
-            // for each attraction, first n visitors in line get to enjoy it
-            foreach (var attraction in themePark.Attractions)
-            {
-                // if can take more visitors
-                if (attraction.CanTakeVisitors(currentTime))
-                {
-                    for (int i = 0; i < attraction.Capacity; i++)
-                    {
-                        if (attraction.VisitorsQueue.Count() == 0)
-                        {
-                            break;
-                        }
-
-                        var visitor = attraction.VisitorsQueue.ElementAt(0);
-                        visitor.GetIntoAttraction(attraction);
-
-                        attraction.VisitorsQueue.Remove(visitor);
-                    }
-                }
-            }
+            // for each attraction, drain queues
+            themePark.Attractions.ToList().ForEach(a => a.DrainQueue(currentTime));
         }
     }
 }

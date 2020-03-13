@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 
 namespace ConsoleApp1.Models
@@ -41,6 +42,27 @@ namespace ConsoleApp1.Models
         public bool CanTakeVisitors(int elapsedMinutes)
         {
             return elapsedMinutes % this.RideTime == 0;
+        }
+
+        public void DrainQueue(int currentTime)
+        {
+            // first n visitors in line get to enjoy it
+            // if can take more visitors
+            if (this.CanTakeVisitors(currentTime))
+            {
+                for (int i = 0; i < this.Capacity; i++)
+                {
+                    if (this.VisitorsQueue.Count == 0)
+                    {
+                        break;
+                    }
+
+                    var visitor = this.VisitorsQueue.ElementAt(0);
+                    visitor.EnjoyAttraction(this);
+
+                    this.VisitorsQueue.Remove(visitor);
+                }
+            }
         }
     }
 }

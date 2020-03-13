@@ -8,7 +8,7 @@ namespace ConsoleApp1.Strategies
 {
     public class WaitTimeAttractionStrategy : IAttractionSelectionStrategy
     {
-        public Attraction GetNextAttraction(ThemePark themePark, IDictionary<Attraction, double> attractionPayoffMap, Attraction lastAttractionVisited)
+        public Attraction GetNextAttraction(ThemePark themePark, IDictionary<Attraction, double> attractionPayoffMap, Point lastLocation)
         {
             IDictionary<Attraction, double> modifiedAttractionPayoffMap = new Dictionary<Attraction, double>();
             double maxWaitTime = (double)modifiedAttractionPayoffMap.Aggregate((l, r) => l.Key.EstimatedWaitTime > r.Key.EstimatedWaitTime ? l : r).Key.EstimatedWaitTime;
