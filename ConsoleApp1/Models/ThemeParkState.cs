@@ -60,7 +60,7 @@ namespace ConsoleApp1.Models
                     visitor.EnqueueInAttraction(nextAttraction);
                     Console.WriteLine("Visitor choose attraction {0}", nextAttraction.Location);
                 }
-                else
+                else if (visitor.EstimatedWaitTimeLeft > 0)
                 {
                     // decrease the time left if he is in an attraction
                     // if he is in the queue, this shouldn't do anything

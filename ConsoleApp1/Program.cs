@@ -8,7 +8,7 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
             // for 1000 days run park n hours
-            int days = 2;
+            int days = 1;
             double totalPayoff = 0;
             for (int day = 1; day <= days; day++)
             {
@@ -20,7 +20,7 @@ namespace ConsoleApp1
                     incentiveBudget:10);
 
 
-                //debuge
+                //debug
                 foreach (var visitor in themeParkState.themePark.Visitors)
                 {
                     Console.WriteLine("For visitor");
