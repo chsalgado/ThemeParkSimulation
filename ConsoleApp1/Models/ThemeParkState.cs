@@ -30,7 +30,7 @@ namespace ConsoleApp1.Models
                                         visitor.Init(themePark.Attractions);
 
                                         return visitor;
-                                    });
+                                    }).ToList();
         }
 
         private Dictionary<Attraction, Incentive> GetIncentives()
@@ -44,16 +44,20 @@ namespace ConsoleApp1.Models
             // add new visitors. Init()
 
             // shuffle the order of visitors
-            themePark.Visitors = themePark.Visitors.OrderBy(v => randomizer.Next());
+            themePark.Visitors = themePark.Visitors.OrderBy(v => randomizer.Next()).ToList();
 
             // for each visitor,
-            foreach (var visitor in themePark.Visitors)
+            for (int i = 0; i < themePark.Visitors.Count(); i++)
             {
+                var visitor = themePark.Visitors[i];
+                Console.WriteLine("visitor payoff is {0}", visitor.AccruedPayoff);
+
                 if (!visitor.IsCurrentlyInAttraction())
                 {
-                    // choose the next attraction if he is not in one 
+                    // choose the next attraction if he is not in one
                     var nextAttraction = visitor.GetNextAttraction(themePark);
                     visitor.EnqueueInAttraction(nextAttraction);
+                    Console.WriteLine("Visitor choose attraction {0}", nextAttraction.Location);
                 }
                 else
                 {

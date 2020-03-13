@@ -11,7 +11,7 @@ namespace ConsoleApp1.Strategies
         public Attraction GetNextAttraction(ThemePark themePark, IDictionary<Attraction, double> attractionPayoffMap, Point lastLocation)
         {
             IDictionary<Attraction, double> modifiedAttractionPayoffMap = new Dictionary<Attraction, double>();
-            double maxWaitTime = (double)modifiedAttractionPayoffMap.Aggregate((l, r) => l.Key.EstimatedWaitTime > r.Key.EstimatedWaitTime ? l : r).Key.EstimatedWaitTime;
+            double maxWaitTime = (double)attractionPayoffMap.Aggregate((l, r) => l.Key.EstimatedWaitTime > r.Key.EstimatedWaitTime ? l : r).Key.EstimatedWaitTime;
             
             foreach (var keyValuePair in attractionPayoffMap)
             {

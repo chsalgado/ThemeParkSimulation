@@ -14,15 +14,28 @@ namespace ConsoleApp1
             {
                 // create a theme park
                 ThemeParkState themeParkState = new ThemeParkState(
-                    numVisitors: 10,
-                    operationHours:3,
+                    numVisitors: 1,
+                    operationHours:1,
                     ticketPrice: 10,
                     incentiveBudget:10);
 
+
+                //debuge
+                foreach (var visitor in themeParkState.themePark.Visitors)
+                {
+                    Console.WriteLine("For visitor");
+                    foreach (var kvp in visitor.AttractionPayoffMap)
+                    {
+                        //textBox3.Text += ("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
+                        Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
+                    }
+                }
+
                 // interval, 1 minute? choose a baseline based on ride time
-                int operatingTime = themeParkState.themePark.OperationHours * 60;
+                int operatingTime = themeParkState.themePark.OperationHours * 20;
                 for (int time = 0; time < operatingTime; time++)
                 {
+                    Console.WriteLine("Time is {0}", time);
                     themeParkState.ProgressState(time);
                 }
 
