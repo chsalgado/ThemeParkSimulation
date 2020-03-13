@@ -40,6 +40,8 @@ namespace ConsoleApp1.Models
             this.Attractions = AttractionList;
             this.Dimensions = new Point(this.Attractions.Max(a => a.Location.X), this.Attractions.Max(a => a.Location.Y));
             this.Visitors = new List<Visitor>();
+            this.TicketPrice = 50;
+            this.IncentivesBudget = TicketPrice * NumberOfVisitors / 10;
         }
 
         private static IEnumerable<Attraction> AttractionList = new List<Attraction>
