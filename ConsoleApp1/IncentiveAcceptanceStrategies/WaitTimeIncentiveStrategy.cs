@@ -11,9 +11,9 @@ namespace ConsoleApp1.Strategies
         public bool IsIncentiveAccepted(Incentive incentive, Attraction currentAttraction, double currentWaitingTime, IDictionary<IncentiveType, double> incentivePayoffCoefficientMap, IDictionary<Attraction, double> attractionPayoffMap)
         {
             var incentivePayoff = incentivePayoffCoefficientMap[incentive.IncentiveType] * incentive.RetailValue;
-            var associatedAttractionPayoff = attractionPayoffMap[incentive.AssociatedAttraction];
+            var associatedAttractionPayoff = attractionPayoffMap[incentive.ExchangeAtAttraction];
             var newPayoff = incentivePayoff + associatedAttractionPayoff;
-            var timeToGetNewPayoff = incentive.AssociatedAttraction.EstimatedWaitTime + incentive.AssociatedAttraction.RideTime;
+            var timeToGetNewPayoff = incentive.ExchangeAtAttraction.EstimatedWaitTime + incentive.ExchangeAtAttraction.RideTime;
             double exponentiallyWeightedNewPayoff = Math.Pow(WaitTimeDiscountFactor, timeToGetNewPayoff) * newPayoff;
 
             var currentPayoff = attractionPayoffMap[currentAttraction];
