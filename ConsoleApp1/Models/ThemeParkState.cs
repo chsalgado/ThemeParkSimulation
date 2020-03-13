@@ -51,6 +51,7 @@ namespace ConsoleApp1.Models
             {
                 var visitor = themePark.Visitors[i];
                 Console.WriteLine("visitor payoff is {0}", visitor.AccruedPayoff);
+                Console.WriteLine("visitor time left is {0}", visitor.EstimatedWaitTimeLeft);
 
                 if (!visitor.IsCurrentlyInAttraction())
                 {
@@ -71,7 +72,10 @@ namespace ConsoleApp1.Models
             // somehow, we get the incentives, and pass it to the visitors in some way
 
             // for each attraction, drain queues
-            themePark.Attractions.ToList().ForEach(a => a.DrainQueue(currentTime));
+            for (int i = 0; i < themePark.Attractions.Count(); i++)
+            {
+                themePark.Attractions[i].DrainQueue(currentTime);
+            }
         }
 
         public double GetFinalPayoff()

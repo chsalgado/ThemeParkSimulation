@@ -147,11 +147,14 @@ namespace ConsoleApp1.Models
 
             // decrease payoff for attraction (no one gets into the same attraction a lot of times)
             this.AttractionPayoffMap[attraction] = attractionPayoff / 2.0;
+            Console.WriteLine("Visitor is enjoying attraction, time left {0} ", TimeLeftInAttraction);
         }
 
         public void DecreaseTimeLeftInAttraction(int decreaseFactor)
         {
             TimeLeftInAttraction = Math.Max(0, TimeLeftInAttraction - decreaseFactor);
+
+            Console.WriteLine("time left in attraction {0} ", TimeLeftInAttraction);
 
             if (TimeLeftInAttraction == 0)
             {

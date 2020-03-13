@@ -10,7 +10,7 @@ namespace ConsoleApp1.Models
         /// <summary>
         /// A theme park has attractions uniformly distributed in a grid
         /// </summary>
-        public IEnumerable<Attraction> Attractions { get; }
+        public List<Attraction> Attractions { get; }
 
         public int OperationHours { get; set; }
 
@@ -29,7 +29,7 @@ namespace ConsoleApp1.Models
 
         public ThemePark()
         {
-            this.Attractions = ATTRACTION_LIST;
+            this.Attractions = getAttractionList();
             this.Dimensions = new Point(this.Attractions.Max(a => a.Location.X), this.Attractions.Max(a => a.Location.Y));
             this.Visitors = new List<Visitor>();
         }
@@ -42,35 +42,38 @@ namespace ConsoleApp1.Models
             // What is the target queue
         }
 
-        private static IEnumerable<Attraction> ATTRACTION_LIST = new List<Attraction>
+        private static List<Attraction> getAttractionList()
         {
-            // hardcode a semi realistic theme park
-            // for each attraction set Location to row, column
-            // this may be just an array or a list
-            new Attraction {
-                RideTime = 15,
-                Capacity = 10,
-                AttractionCategory = AttractionCategory.Extreme,
-                Location = new Point(3, 2)
-            },
-            new Attraction {
-                RideTime = 15,
-                Capacity = 10,
-                AttractionCategory = AttractionCategory.Family,
-                Location = new Point(5, 5)
-            },
-            new Attraction {
-                RideTime = 15,
-                Capacity = 10,
-                AttractionCategory = AttractionCategory.Kids,
-                Location = new Point(4, 5)
-            },
-            new Attraction {
-                RideTime = 15,
-                Capacity = 10,
-                AttractionCategory = AttractionCategory.LiveShow,
-                Location = new Point(1, 2)
-            }
-        };
+            return new List<Attraction>
+            {
+                // hardcode a semi realistic theme park
+                // for each attraction set Location to row, column
+                // this may be just an array or a list
+                new Attraction {
+                    RideTime = 15,
+                    Capacity = 10,
+                    AttractionCategory = AttractionCategory.Extreme,
+                    Location = new Point(3, 2)
+                },
+                new Attraction {
+                    RideTime = 15,
+                    Capacity = 10,
+                    AttractionCategory = AttractionCategory.Family,
+                    Location = new Point(5, 5)
+                },
+                new Attraction {
+                    RideTime = 15,
+                    Capacity = 10,
+                    AttractionCategory = AttractionCategory.Kids,
+                    Location = new Point(4, 5)
+                },
+                new Attraction {
+                    RideTime = 15,
+                    Capacity = 10,
+                    AttractionCategory = AttractionCategory.LiveShow,
+                    Location = new Point(1, 2)
+                }
+            };
+        }
     }
 }
