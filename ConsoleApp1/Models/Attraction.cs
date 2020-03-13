@@ -14,7 +14,7 @@ namespace ConsoleApp1.Models
         /// </summary>
         public int RideTime { get; set; }
 
-        public Queue<Visitor> VisitorsQueue { get; set; }
+        public IList<Visitor> VisitorsQueue { get; set; }
 
         /// <summary>
         /// Estimated wait time in minutes
@@ -35,7 +35,7 @@ namespace ConsoleApp1.Models
 
         public void Init()
         {
-            this.VisitorsQueue = new Queue<Visitor>();
+            this.VisitorsQueue = new List<Visitor>();
         }
 
         public bool CanTakeVisitors(int elapsedMinutes)

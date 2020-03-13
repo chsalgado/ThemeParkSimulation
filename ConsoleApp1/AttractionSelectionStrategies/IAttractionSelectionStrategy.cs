@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ConsoleApp1.Strategies
 {
-    public interface IVisitorStrategy
+    public interface IAttractionSelectionStrategy
     {
         Attraction GetNextAttraction(ThemePark themePark, IDictionary<Attraction, double> attractionPayoffMap, Attraction lastAttractionVisited);
     }

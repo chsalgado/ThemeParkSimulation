@@ -17,12 +17,21 @@ namespace ConsoleApp1.Models
         private static readonly List<AttractionCategory> ATTRACTION_CATEGORIES
             = Enum.GetValues(typeof(AttractionCategory)).Cast<AttractionCategory>().ToList();
 
-        private static readonly List<Func<IVisitorStrategy>> STRATEGY_CREATORS = new List<Func<IVisitorStrategy>>
-        {
-            () => new DistanceVisitorStrategy(),
-            () => new PayoffVisitorStrategy(),
-            () => new WaitTimeVisitorStrategy()
+        private static readonly List<IncentiveType> INCENTIVE_TYPES
+            = Enum.GetValues(typeof(IncentiveType)).Cast<IncentiveType>().ToList();
 
+        private static readonly IList<Func<IAttractionSelectionStrategy>> ATTRACTION_STRATEGY_CREATORS = new List<Func<IAttractionSelectionStrategy>>
+        {
+            () => new DistanceAttractionStrategy(),
+            () => new PayoffAttractionStrategy(),
+            () => new WaitTimeAttractionStrategy()
+
+        };
+
+        private static readonly IList<Func<IIncentiveAcceptanceStrategy>> INCENTIVE_STRATEGY_CREATORS = new List<Func<IIncentiveAcceptanceStrategy>>
+        {
+            () => new WaitTimeIncentiveStrategy(),
+            () => new InversePayoffIncentiveStrategy()
         };
 
         private Random randomizer = new Random();
@@ -38,13 +47,32 @@ namespace ConsoleApp1.Models
         // Like most, like, like less, do not like
         public AttractionCategory[] AttractionCategoriesPreferences { get; set; }
 
-        public IVisitorStrategy VisitorStrategy { get; set; }
+        public IAttractionSelectionStrategy AttranctionSelectionStrategy { get; set; }
+
+        public IIncentiveAcceptanceStrategy IncentiveAcceptanceStrategy { get; set; }
 
         private int TimeLeftInAttraction { get; set; }
 
         public Attraction CurrentAttraction { get; set; }
 
         public Point Location { get; set; }
+
+        /// <summary>
+        /// Estimated wait time left in a queue in minutes
+        /// </summary>
+        public int EstimatedWaitTimeLeft
+        {
+            get
+            {
+                if (this.CurrentAttraction == null)
+                {
+                    return 0;
+                }
+
+                var positionInQueue = this.CurrentAttraction.VisitorsQueue.IndexOf(this);
+                return (int)Math.Ceiling((double)positionInQueue / (double)this.CurrentAttraction.Capacity) * this.CurrentAttraction.RideTime;
+            }
+        }
 
         public void Init(IEnumerable<Attraction> attractions)
         {
@@ -67,9 +95,12 @@ namespace ConsoleApp1.Models
                 AttractionPayoffMap[attraction] = payoff;
             }
 
-            // Get an IVisitorStrategy
-            VisitorStrategy = STRATEGY_CREATORS[randomizer.Next(STRATEGY_CREATORS.Count())].Invoke();
+            // Get an IAttractionSelectionStrategy
+            AttranctionSelectionStrategy = ATTRACTION_STRATEGY_CREATORS[randomizer.Next(ATTRACTION_STRATEGY_CREATORS.Count())].Invoke();
 
+            // Get an IIncentiveAcceptanceStrategy
+            IncentiveAcceptanceStrategy = INCENTIVE_STRATEGY_CREATORS[randomizer.Next(INCENTIVE_STRATEGY_CREATORS.Count())].Invoke();
+            
             // Set Location to 0, 0
             Location = new Point(0, 0);
 
@@ -115,7 +146,7 @@ namespace ConsoleApp1.Models
 
         public Attraction GetNextAttraction(ThemePark themePark)
         {
-            return VisitorStrategy.GetNextAttraction(themePark, AttractionPayoffMap, lastAttractionVisited);
+            return AttranctionSelectionStrategy.GetNextAttraction(themePark, AttractionPayoffMap, lastAttractionVisited);
         }
 
 

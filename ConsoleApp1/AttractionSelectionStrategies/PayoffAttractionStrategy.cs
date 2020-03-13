@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ConsoleApp1.Strategies
 {
-    public class PayoffVisitorStrategy : IVisitorStrategy
+    public class PayoffAttractionStrategy : IAttractionSelectionStrategy
     {
         public Attraction GetNextAttraction(ThemePark themePark, IDictionary<Attraction, double> attractionPayoffMap, Attraction lastAttractionVisited)
         {

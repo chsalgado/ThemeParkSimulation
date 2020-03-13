@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace ConsoleApp1.Strategies
 {
-    public class WaitTimeVisitorStrategy : IVisitorStrategy
+    public class WaitTimeAttractionStrategy : IAttractionSelectionStrategy
     {
         public Attraction GetNextAttraction(ThemePark themePark, IDictionary<Attraction, double> attractionPayoffMap, Attraction lastAttractionVisited)
         {
