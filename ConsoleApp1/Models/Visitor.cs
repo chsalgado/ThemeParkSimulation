@@ -111,7 +111,7 @@ namespace ConsoleApp1.Models
             AccruedPayoff = 0;
         }
 
-        public bool AcceptIncentive(Incentive incentive)
+        public void AcceptIncentive(Incentive incentive)
         {   
             // Dequeue from current attraction and go to next one
             this.CurrentAttraction.VisitorsQueue.Remove(this);
@@ -122,8 +122,6 @@ namespace ConsoleApp1.Models
             
             // decrease payoff for incentive (i may be happy with one plushie, but the second one makes me less happy)
             this.IncentivePayoffCoefficientMap[incentive.IncentiveType] = this.IncentivePayoffCoefficientMap[incentive.IncentiveType] / 2.0;
-
-            return true;
         }
 
         public void EnqueueInAttraction(Attraction attraction)
