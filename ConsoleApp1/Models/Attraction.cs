@@ -39,16 +39,16 @@ namespace ConsoleApp1.Models
 
         public Point Location { get; set; }
 
-        public bool CanTakeVisitors(int elapsedMinutes)
+        public bool CanTakeVisitors()
         {
-            return elapsedMinutes % this.RideTime == 0;
+            return ThemeParkState.CurrentTime % this.RideTime == 0;
         }
 
-        public void DrainQueue(int currentTime)
+        public void DrainQueue()
         {
             // first n visitors in line get to enjoy it
             // if can take more visitors
-            if (this.CanTakeVisitors(currentTime))
+            if (this.CanTakeVisitors())
             {
                 for (int i = 0; i < this.Capacity; i++)
                 {

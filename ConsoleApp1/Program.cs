@@ -7,6 +7,7 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
+            
             // for 1000 days run park n hours
             int days = 1;
             double totalPayoff = 0;
@@ -16,8 +17,7 @@ namespace ConsoleApp1
                 ThemeParkState themeParkState = new ThemeParkState(
                     numVisitors: 1,
                     operationHours:1,
-                    ticketPrice: 10,
-                    incentiveBudget:10);
+                    ticketPrice: 50);
 
 
                 //debug
@@ -33,6 +33,7 @@ namespace ConsoleApp1
 
                 // interval, 1 minute? choose a baseline based on ride time
                 int operatingTime = themeParkState.themePark.OperationHours * 20;
+
                 for (int time = 0; time < operatingTime; time++)
                 {
                     Console.WriteLine("Time is {0}", time);

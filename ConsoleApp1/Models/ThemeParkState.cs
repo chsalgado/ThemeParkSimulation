@@ -7,16 +7,18 @@ namespace ConsoleApp1.Models
     public class ThemeParkState
     {
         public readonly ThemePark themePark;
+        public static int CurrentTime;
+
         private Random randomizer = new Random();
 
-        public ThemeParkState(int numVisitors, int operationHours, double ticketPrice, double incentiveBudget)
+        public ThemeParkState(int numVisitors, int operationHours, double ticketPrice)
         {
             themePark = new ThemePark
             {
                 NumberOfVisitors = numVisitors,
                 OperationHours = operationHours,
                 TicketPrice = ticketPrice,
-                IncentivesBudget = incentiveBudget
+                IncentivesBudget = ticketPrice * numVisitors / 10
             };
 
             InitVisitors(themePark);
@@ -40,6 +42,8 @@ namespace ConsoleApp1.Models
 
         public void ProgressState(int currentTime)
         {
+            CurrentTime = currentTime;
+
             // if themePark.Vistitors.Length < themePark.Visitors
             // add new visitors. Init()
 
@@ -74,7 +78,7 @@ namespace ConsoleApp1.Models
             // for each attraction, drain queues
             for (int i = 0; i < themePark.Attractions.Count(); i++)
             {
-                themePark.Attractions[i].DrainQueue(currentTime);
+                themePark.Attractions[i].DrainQueue();
             }
         }
 

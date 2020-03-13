@@ -69,8 +69,8 @@ namespace ConsoleApp1.Models
                     return 0;
                 }
 
-                var positionInQueue = this.CurrentAttraction.VisitorsQueue.IndexOf(this);
-                return (int)Math.Ceiling((double)positionInQueue / (double)this.CurrentAttraction.Capacity) * this.CurrentAttraction.RideTime;
+                var positionInQueue = this.CurrentAttraction.VisitorsQueue.IndexOf(this) + 1;
+                return ((int)Math.Ceiling((double)positionInQueue / (double)this.CurrentAttraction.Capacity) * this.CurrentAttraction.RideTime) - (ThemeParkState.CurrentTime % this.CurrentAttraction.RideTime);
             }
         }
 
