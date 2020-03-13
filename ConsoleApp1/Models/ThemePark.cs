@@ -34,12 +34,13 @@ namespace ConsoleApp1.Models
             this.Visitors = new List<Visitor>();
         }
 
-        public void GenerateIncentive()
+        public Incentive GenerateIncentive()
         {
             // When to generate one
             // Which one to generate
             // How many people to offer it to
             // What is the target queue
+            return null;
         }
 
         #region AttractionList

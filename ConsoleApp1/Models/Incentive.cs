@@ -8,14 +8,43 @@ namespace ConsoleApp1.Models
 {
     public class Incentive
     {
-        public IncentiveType IncentiveType { get; set; }
+        public static IDictionary<IncentiveType, int> RetailPrices = new Dictionary<IncentiveType, int>
+        {
+            { IncentiveType.SmallPlushie, 15 },
+            { IncentiveType.BigPlushie, 30 },
+            { IncentiveType.Snack, 10 },
+            { IncentiveType.VipSeat, 20 }
+        };
+
+        public static IDictionary<IncentiveType, int> RealPrices = new Dictionary<IncentiveType, int>
+        {
+            { IncentiveType.SmallPlushie, 3 },
+            { IncentiveType.BigPlushie, 6 },
+            { IncentiveType.Snack, 2 },
+            { IncentiveType.VipSeat, 10 } // Opportunity cost
+        };
+
+        public IncentiveType IncentiveType { get; }
         
-        public int RetailValue { get; set; }
+        public int RetailValue { get; }
 
-        public int RealValue { get; set; }
+        public int RealValue { get; }
 
-        public Attraction AssociatedAttraction { get; set; }
+        public Attraction ExchangeAtAttraction { get; }
 
-        public int NumberOfVisitorsToOffer { get; set; }
+        public Attraction OfferToAttraction { get; }
+
+        public int NumberOfVisitorsToOffer { get; }
+
+        public Incentive(IncentiveType incentiveType, Attraction offerToAttraction, Attraction exchangeAtAttraction, int numberOfVisitorsToOffer)
+        {
+            this.IncentiveType = incentiveType;
+            this.OfferToAttraction = offerToAttraction;
+            this.ExchangeAtAttraction = exchangeAtAttraction;
+            this.NumberOfVisitorsToOffer = numberOfVisitorsToOffer;
+
+            this.RetailValue = RetailPrices[incentiveType];
+            this.RealValue = RealPrices[incentiveType];
+        }
     }
 }

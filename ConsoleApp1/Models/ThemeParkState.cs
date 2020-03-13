@@ -42,6 +42,10 @@ namespace ConsoleApp1.Models
 
         public void ProgressState(int currentTime)
         {
+            // *Foreach visitor.If not in attraction, select next attraction
+            //* Theme park decides to generate incentive
+            //* If an incentive was created, visitors decide to accept or not incentive
+            //*Drain Queues
             CurrentTime = currentTime;
 
             // if themePark.Vistitors.Length < themePark.Visitors
@@ -73,7 +77,20 @@ namespace ConsoleApp1.Models
 
             }
 
-            // somehow, we get the incentives, and pass it to the visitors in some way
+            // generate an incentive and offer it if needed
+            var offeredIncentive = themePark.GenerateIncentive();
+            if (offeredIncentive != null)
+            {
+                var visitorsToOfferIncentiveTo = offeredIncentive.OfferToAttraction.VisitorsQueue.Skip(Math.Max(0, offeredIncentive.OfferToAttraction.VisitorsQueue.Count() - offeredIncentive.NumberOfVisitorsToOffer));
+                
+                foreach (var visitorToOfferIncentiveTo in visitorsToOfferIncentiveTo)
+                {
+                    if (visitorToOfferIncentiveTo.IsIncentiveAccepted(offeredIncentive))
+                    {
+                        visitorToOfferIncentiveTo.AcceptIncentive(offeredIncentive);
+                    }
+                }
+            }
 
             // for each attraction, drain queues
             for (int i = 0; i < themePark.Attractions.Count(); i++)

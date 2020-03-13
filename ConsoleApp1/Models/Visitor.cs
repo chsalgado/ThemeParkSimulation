@@ -118,7 +118,7 @@ namespace ConsoleApp1.Models
         {   
             // Dequeue from current attraction and go to next one
             this.CurrentAttraction.VisitorsQueue.Remove(this);
-            this.EnqueueInAttraction(incentive.AssociatedAttraction);
+            this.EnqueueInAttraction(incentive.ExchangeAtAttraction);
 
             // Get incentivePayoff
             this.AccruedPayoff += this.IncentivePayoffCoefficientMap[incentive.IncentiveType] * incentive.RetailValue;
@@ -164,9 +164,13 @@ namespace ConsoleApp1.Models
 
         public Attraction GetNextAttraction(ThemePark themePark)
         {
-            return AttranctionSelectionStrategy.GetNextAttraction(themePark, AttractionPayoffMap, this.Location);
+            return AttranctionSelectionStrategy.GetNextAttraction(themePark, this.AttractionPayoffMap, this.Location);
         }
 
+        public bool IsIncentiveAccepted(Incentive incentive)
+        {
+            return IncentiveAcceptanceStrategy.IsIncentiveAccepted(incentive, this.CurrentAttraction, this.EstimatedWaitTimeLeft, this.IncentivePayoffCoefficientMap, this.AttractionPayoffMap);
+        }
 
         public bool IsCurrentlyInAttraction()
         {

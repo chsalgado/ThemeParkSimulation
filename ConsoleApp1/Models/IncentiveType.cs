@@ -6,9 +6,9 @@ namespace ConsoleApp1.Models
 {
     public enum IncentiveType
     {
-        Food,
+        Snack,
         SmallPlushie,
         BigPlushie,
-        LowWaitTimeInfo
+        VipSeat
     }
 }
