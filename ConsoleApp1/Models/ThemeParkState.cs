@@ -55,7 +55,7 @@ namespace ConsoleApp1.Models
             {
                 var visitor = themePark.Visitors[i];
                 Console.WriteLine("visitor payoff is {0}", visitor.AccruedPayoff);
-                Console.WriteLine("visitor time left is {0}", visitor.EstimatedWaitTimeLeft);
+                Console.WriteLine("visitor time left is {0}", visitor.TimeLeftInAttraction);
 
                 if (!visitor.IsCurrentlyInAttraction())
                 {
@@ -64,7 +64,7 @@ namespace ConsoleApp1.Models
                     visitor.EnqueueInAttraction(nextAttraction);
                     Console.WriteLine("Visitor choose attraction {0}", nextAttraction.Location);
                 }
-                else if (visitor.EstimatedWaitTimeLeft > 0)
+                else if (visitor.TimeLeftInAttraction > 0)
                 {
                     // decrease the time left if he is in an attraction
                     // if he is in the queue, this shouldn't do anything
