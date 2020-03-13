@@ -9,8 +9,6 @@ namespace ConsoleApp1.Models
         private ThemePark themePark;
         private Random randomizer = new Random();
 
-        private Dictionary<Visitor, Queue<Visitor>> visitorQueueMap;
-
         public ThemeParkState()
         {
             themePark = new ThemePark();
@@ -19,21 +17,19 @@ namespace ConsoleApp1.Models
             InitVisitors(themePark);
 
             themePark.Attractions.ToList().ForEach(a => a.Init());
-
-            visitorQueueMap = new Dictionary<Visitor, Queue<Visitor>>();
         }
 
         private void InitVisitors(ThemePark themePark)
         {
-            themePark.Visitors = Enumerable.Range(0, themePark.NumberOfVisitors).Select((i) => 
+            themePark.Visitors = Enumerable.Range(0, themePark.NumberOfVisitors).Select((i) =>
                                     {
                                         var visitor = new Visitor();
                                         visitor.Init(themePark.Attractions);
 
-                                        return visitor; 
-                                    }); 
+                                        return visitor;
+                                    });
         }
-        
+
         private Dictionary<Attraction, Incentive> GetIncentives()
         {
             return null;
@@ -54,9 +50,9 @@ namespace ConsoleApp1.Models
                 {
                     // choose the next attraction if he is not in one 
                     var nextAttraction = visitor.GetNextAttraction(themePark);
-                    nextAttraction.VisitorsQueue.Enqueue(visitor);
+                    nextAttraction.VisitorsQueue.Add(visitor);
                 }
-                else 
+                else
                 {
                     // decrease the time left if he is in an attraction
                     // if he is in the queue, this shouldn't do anything
@@ -75,9 +71,15 @@ namespace ConsoleApp1.Models
                 {
                     for (int i = 0; i < attraction.Capacity; i++)
                     {
-                        if (attraction.VisitorsQueue.Count() == 0) break;
-                        var visitor = attraction.VisitorsQueue.Dequeue();
+                        if (attraction.VisitorsQueue.Count() == 0)
+                        {
+                            break;
+                        }
+
+                        var visitor = attraction.VisitorsQueue.ElementAt(0);
                         visitor.GetIntoAttraction(attraction);
+
+                        attraction.VisitorsQueue.Remove(visitor);
                     }
                 }
             }
