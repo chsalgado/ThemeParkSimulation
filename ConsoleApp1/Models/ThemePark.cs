@@ -10,7 +10,7 @@ namespace ConsoleApp1.Models
         /// <summary>
         /// A theme park has attractions uniformly distributed in a grid
         /// </summary>
-        public IEnumerable<Attraction> Attractions { get; set; }
+        public IEnumerable<Attraction> Attractions { get; }
 
         public int OperationHours { get; set; }
 
@@ -21,11 +21,18 @@ namespace ConsoleApp1.Models
 
         public IEnumerable<Visitor> Visitors { get; set; }
 
-        public int TicketPrice { get; set; }
+        public double TicketPrice { get; set; }
 
-        public int IncentivesBudget { get; set; }
+        public double IncentivesBudget { get; set; }
 
         public Point Dimensions { get; set; }
+
+        public ThemePark()
+        {
+            this.Attractions = ATTRACTION_LIST;
+            this.Dimensions = new Point(this.Attractions.Max(a => a.Location.X), this.Attractions.Max(a => a.Location.Y));
+            this.Visitors = new List<Visitor>();
+        }
 
         public void GenerateIncentive()
         {
@@ -35,22 +42,35 @@ namespace ConsoleApp1.Models
             // What is the target queue
         }
 
-        public void Init()
-        {
-            this.Attractions = AttractionList;
-            this.Dimensions = new Point(this.Attractions.Max(a => a.Location.X), this.Attractions.Max(a => a.Location.Y));
-            this.Visitors = new List<Visitor>();
-            this.TicketPrice = 50;
-            this.IncentivesBudget = TicketPrice * NumberOfVisitors / 10;
-        }
-
-        private static IEnumerable<Attraction> AttractionList = new List<Attraction>
+        private static IEnumerable<Attraction> ATTRACTION_LIST = new List<Attraction>
         {
             // hardcode a semi realistic theme park
             // for each attraction set Location to row, column
             // this may be just an array or a list
-            new Attraction { }, 
-            new Attraction { },
+            new Attraction {
+                RideTime = 15,
+                Capacity = 10,
+                AttractionCategory = AttractionCategory.Extreme,
+                Location = new Point(3, 2)
+            },
+            new Attraction {
+                RideTime = 15,
+                Capacity = 10,
+                AttractionCategory = AttractionCategory.Family,
+                Location = new Point(5, 5)
+            },
+            new Attraction {
+                RideTime = 15,
+                Capacity = 10,
+                AttractionCategory = AttractionCategory.Kids,
+                Location = new Point(4, 5)
+            },
+            new Attraction {
+                RideTime = 15,
+                Capacity = 10,
+                AttractionCategory = AttractionCategory.LiveShow,
+                Location = new Point(1, 2)
+            }
         };
     }
 }

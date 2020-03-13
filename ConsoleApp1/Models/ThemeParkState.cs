@@ -6,17 +6,20 @@ namespace ConsoleApp1.Models
 {
     public class ThemeParkState
     {
-        private ThemePark themePark;
+        public readonly ThemePark themePark;
         private Random randomizer = new Random();
 
-        public ThemeParkState()
+        public ThemeParkState(int numVisitors, int operationHours, double ticketPrice, double incentiveBudget)
         {
-            themePark = new ThemePark();
-            themePark.Init();
+            themePark = new ThemePark
+            {
+                NumberOfVisitors = numVisitors,
+                OperationHours = operationHours,
+                TicketPrice = ticketPrice,
+                IncentivesBudget = incentiveBudget
+            };
 
             InitVisitors(themePark);
-
-            themePark.Attractions.ToList().ForEach(a => a.Init());
         }
 
         private void InitVisitors(ThemePark themePark)
@@ -65,6 +68,11 @@ namespace ConsoleApp1.Models
 
             // for each attraction, drain queues
             themePark.Attractions.ToList().ForEach(a => a.DrainQueue(currentTime));
+        }
+
+        public double GetFinalPayoff()
+        {
+            return themePark.Visitors.Sum(v => v.AccruedPayoff);
         }
     }
 }

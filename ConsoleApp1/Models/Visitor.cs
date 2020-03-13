@@ -10,7 +10,10 @@ namespace ConsoleApp1.Models
     {
         private static Tuple<double, double>[] PAYOFF_RANGES = new Tuple<double, double>[]
         {
-
+            Tuple.Create(1.0, 2.0),
+            Tuple.Create(2.0, 3.0),
+            Tuple.Create(3.0, 4.0),
+            Tuple.Create(4.0, 5.0)
         };
 
         private static readonly List<AttractionCategory> ATTRACTION_CATEGORIES

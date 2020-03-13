@@ -8,6 +8,11 @@ namespace ConsoleApp1.Models
 {
     public class Attraction
     {
+        public Attraction()
+        {
+            this.VisitorsQueue = new List<Visitor>();
+        }
+
         public int Capacity { get; set; }
 
         /// <summary>
@@ -33,11 +38,6 @@ namespace ConsoleApp1.Models
         public AttractionCategory AttractionCategory { get; set; }
 
         public Point Location { get; set; }
-
-        public void Init()
-        {
-            this.VisitorsQueue = new List<Visitor>();
-        }
 
         public bool CanTakeVisitors(int elapsedMinutes)
         {
