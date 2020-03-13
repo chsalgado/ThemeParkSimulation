@@ -51,7 +51,7 @@ namespace ConsoleApp1.Models
 
         public IIncentiveAcceptanceStrategy IncentiveAcceptanceStrategy { get; set; }
 
-        private int TimeLeftInAttraction { get; set; }
+        public int TimeLeftInAttraction { get; set; }
 
         public Attraction CurrentAttraction { get; set; }
 
