@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConsoleApp1.Strategies;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -7,10 +8,17 @@ namespace ConsoleApp1.Models
 {
     public class ThemePark
     {
+        private static readonly IList<Func<IIncentiveGenerationStrategy>> INCENTIVE_GENERATION_STRATEGY_CREATORS = new List<Func<IIncentiveGenerationStrategy>>
+        {
+            () => new WaitTimeBalanceGenerationStrategy()
+        };
+
+        private Random randomizer = new Random();
+
         /// <summary>
         /// A theme park has attractions uniformly distributed in a grid
         /// </summary>
-        public List<Attraction> Attractions { get; }
+        public IList<Attraction> Attractions { get; }
 
         public int OperationHours { get; set; }
 
@@ -19,27 +27,31 @@ namespace ConsoleApp1.Models
         /// </summary>
         public int NumberOfVisitors { get; set; }
 
-        public List<Visitor> Visitors { get; set; }
+        public IList<Visitor> Visitors { get; set; }
 
         public double TicketPrice { get; set; }
 
         public double IncentivesBudget { get; set; }
 
+        public double UsedIncentivesBudget { get; set; }
+
         public Point Dimensions { get; set; }
+
+        public IIncentiveGenerationStrategy IncentiveGenerationStrategy { get; set; }
 
         public ThemePark()
         {
             this.Attractions = getAttractionList();
             this.Dimensions = new Point(this.Attractions.Max(a => a.Location.X), this.Attractions.Max(a => a.Location.Y));
             this.Visitors = new List<Visitor>();
+
+            // Get an IIncentiveAcceptanceStrategy
+            this.IncentiveGenerationStrategy = INCENTIVE_GENERATION_STRATEGY_CREATORS[randomizer.Next(INCENTIVE_GENERATION_STRATEGY_CREATORS.Count())].Invoke();
         }
 
         public Incentive GenerateIncentive()
         {
-            // When to generate one
-            // Which one to generate
-            // How many people to offer it to
-            // What is the target queue
+            this.IncentiveGenerationStrategy.GenerateIncentive(this.Attractions, this.IncentivesBudget, this.UsedIncentivesBudget, this.OperationHours, ThemeParkState.CurrentTime);
             return null;
         }
 

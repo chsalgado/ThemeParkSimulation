@@ -88,6 +88,7 @@ namespace ConsoleApp1.Models
                     if (visitorToOfferIncentiveTo.IsIncentiveAccepted(offeredIncentive))
                     {
                         visitorToOfferIncentiveTo.AcceptIncentive(offeredIncentive);
+                        themePark.UsedIncentivesBudget += offeredIncentive.RealValue;
                     }
                 }
             }

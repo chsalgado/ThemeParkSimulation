@@ -8,7 +8,7 @@ namespace ConsoleApp1.Models
 {
     public class Incentive
     {
-        public static IDictionary<IncentiveType, int> RetailPrices = new Dictionary<IncentiveType, int>
+        private static IDictionary<IncentiveType, int> RetailPrices = new Dictionary<IncentiveType, int>
         {
             { IncentiveType.SmallPlushie, 15 },
             { IncentiveType.BigPlushie, 30 },
@@ -16,7 +16,7 @@ namespace ConsoleApp1.Models
             { IncentiveType.VipSeat, 20 }
         };
 
-        public static IDictionary<IncentiveType, int> RealPrices = new Dictionary<IncentiveType, int>
+        private static IDictionary<IncentiveType, int> RealPrices = new Dictionary<IncentiveType, int>
         {
             { IncentiveType.SmallPlushie, 3 },
             { IncentiveType.BigPlushie, 6 },
