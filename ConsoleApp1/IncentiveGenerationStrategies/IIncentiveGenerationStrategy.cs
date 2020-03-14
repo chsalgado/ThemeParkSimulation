@@ -7,6 +7,6 @@ namespace ConsoleApp1.Strategies
 {
     public interface IIncentiveGenerationStrategy
     {
-        Incentive GenerateIncentive(IEnumerable<Attraction> attractions, double totalBugdet, double usedBudget, int operationHours, int currentTime);
+        Incentive GenerateIncentive(List<Attraction> attractions, double totalBugdet, double usedBudget, int totalTime, int currentTime);
     }
 }

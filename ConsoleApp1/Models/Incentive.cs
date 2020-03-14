@@ -8,27 +8,27 @@ namespace ConsoleApp1.Models
 {
     public class Incentive
     {
-        public static IDictionary<IncentiveType, int> RetailPrices = new Dictionary<IncentiveType, int>
+        public static IDictionary<IncentiveType, double> RetailPrices = new Dictionary<IncentiveType, double>
         {
-            { IncentiveType.SmallPlushie, 15 },
-            { IncentiveType.BigPlushie, 30 },
-            { IncentiveType.Snack, 10 },
-            { IncentiveType.VipSeat, 20 }
+            { IncentiveType.SmallPlushie, 15.0 },
+            { IncentiveType.BigPlushie, 30.0 },
+            { IncentiveType.Snack, 10.0 },
+            { IncentiveType.VipSeat, 20.0 }
         };
 
-        public static IDictionary<IncentiveType, int> RealPrices = new Dictionary<IncentiveType, int>
+        public static IDictionary<IncentiveType, double> RealPrices = new Dictionary<IncentiveType, double>
         {
-            { IncentiveType.SmallPlushie, 3 },
-            { IncentiveType.BigPlushie, 6 },
-            { IncentiveType.Snack, 2 },
-            { IncentiveType.VipSeat, 10 } // Opportunity cost
+            { IncentiveType.SmallPlushie, 3.0 },
+            { IncentiveType.BigPlushie, 6.0 },
+            { IncentiveType.Snack, 2.0 },
+            { IncentiveType.VipSeat, 10.0 } // Opportunity cost
         };
 
         public IncentiveType IncentiveType { get; }
         
-        public int RetailValue { get; }
+        public double RetailValue { get; }
 
-        public int RealValue { get; }
+        public double RealValue { get; }
 
         public Attraction ExchangeAtAttraction { get; }
 
