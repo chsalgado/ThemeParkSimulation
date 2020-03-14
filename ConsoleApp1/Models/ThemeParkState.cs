@@ -60,15 +60,12 @@ namespace ConsoleApp1.Models
             for (int i = 0; i < themePark.Visitors.Count(); i++)
             {
                 var visitor = themePark.Visitors[i];
-                Console.WriteLine("visitor payoff is {0}", visitor.AccruedPayoff);
-                Console.WriteLine("visitor time left is {0}", visitor.TimeLeftInAttraction);
 
                 if (!visitor.IsCurrentlyInAttraction())
                 {
                     // choose the next attraction if he is not in one
                     var nextAttraction = visitor.GetNextAttraction(themePark);
                     visitor.EnqueueInAttraction(nextAttraction);
-                    Console.WriteLine("Visitor choose attraction {0}", nextAttraction.Location);
                 }
                 else if (visitor.TimeLeftInAttraction > 0)
                 {

@@ -34,6 +34,8 @@ namespace ConsoleApp1.Strategies
             double budgetPerPerson = budgetToSpend / peopleToReceiveIncentives;
 
             var affordableIncentives = Incentive.RealPrices.Where(k => k.Value <= budgetPerPerson);
+            if (affordableIncentives.Count() == 0) return null;
+
             var incentiveType =
                 affordableIncentives.Aggregate(affordableIncentives.First(), (max, curr) => curr.Value > max.Value ? curr : max).Key; 
 
