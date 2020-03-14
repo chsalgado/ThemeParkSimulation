@@ -16,7 +16,7 @@ namespace ConsoleApp1
                 // create a theme park
                 ThemeParkState themeParkState = new ThemeParkState(
                     numVisitors: 1,
-                    operationHours:1,
+                    operationMinutes: 1 * 20,
                     ticketPrice: 50);
 
 
@@ -32,9 +32,7 @@ namespace ConsoleApp1
                 }
 
                 // interval, 1 minute? choose a baseline based on ride time
-                int operatingTime = themeParkState.themePark.OperationHours * 20;
-
-                for (int time = 0; time < operatingTime; time++)
+                for (int time = 0; time < themeParkState.themePark.OperationMinutes; time++)
                 {
                     Console.WriteLine("Time is {0}", time);
                     themeParkState.ProgressState(time);

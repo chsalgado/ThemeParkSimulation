@@ -20,7 +20,7 @@ namespace ConsoleApp1.Models
         /// </summary>
         public IList<Attraction> Attractions { get; }
 
-        public int OperationHours { get; set; }
+        public int OperationMinutes { get; set; }
 
         /// <summary>
         /// How many? Research six flags?
@@ -39,6 +39,10 @@ namespace ConsoleApp1.Models
 
         public IIncentiveGenerationStrategy IncentiveGenerationStrategy { get; set; }
 
+        public int IncentiveGenerationInterval { get; set; }
+
+        public bool ShouldGenerateIncentives { get; set; }
+
         public ThemePark()
         {
             this.Attractions = getAttractionList();
@@ -51,7 +55,11 @@ namespace ConsoleApp1.Models
 
         public Incentive GenerateIncentive()
         {
-            this.IncentiveGenerationStrategy.GenerateIncentive(this.Attractions, this.IncentivesBudget, this.UsedIncentivesBudget, this.OperationHours, ThemeParkState.CurrentTime);
+            if (this.ShouldGenerateIncentives && this.IncentiveGenerationInterval % ThemeParkState.CurrentTime == 0)
+            {
+                return this.IncentiveGenerationStrategy.GenerateIncentive(this.Attractions, this.IncentivesBudget, this.UsedIncentivesBudget, this.OperationMinutes, ThemeParkState.CurrentTime);
+            }
+
             return null;
         }
 

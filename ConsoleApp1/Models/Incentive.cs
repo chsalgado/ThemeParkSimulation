@@ -8,7 +8,7 @@ namespace ConsoleApp1.Models
 {
     public class Incentive
     {
-        private static IDictionary<IncentiveType, int> RetailPrices = new Dictionary<IncentiveType, int>
+        private static IDictionary<IncentiveType, double> RetailPrices = new Dictionary<IncentiveType, double>
         {
             { IncentiveType.SmallPlushie, 15.0 },
             { IncentiveType.BigPlushie, 30.0 },

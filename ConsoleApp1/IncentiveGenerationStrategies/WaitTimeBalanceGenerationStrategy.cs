@@ -8,7 +8,7 @@ namespace ConsoleApp1.Strategies
     public class WaitTimeBalanceGenerationStrategy : IIncentiveGenerationStrategy
     {
         public Incentive GenerateIncentive(
-            List<Attraction> attractions,
+            IList<Attraction> attractions,
             double totalBugdet,
             double usedBudget,
             int totalTime,

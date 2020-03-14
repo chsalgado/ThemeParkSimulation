@@ -11,14 +11,16 @@ namespace ConsoleApp1.Models
 
         private Random randomizer = new Random();
 
-        public ThemeParkState(int numVisitors, int operationHours, double ticketPrice)
+        public ThemeParkState(int numVisitors, int operationMinutes, double ticketPrice)
         {
             themePark = new ThemePark
             {
                 NumberOfVisitors = numVisitors,
-                OperationHours = operationHours,
+                OperationMinutes = operationMinutes,
                 TicketPrice = ticketPrice,
-                IncentivesBudget = ticketPrice * numVisitors / 10
+                IncentivesBudget = ticketPrice * numVisitors / 10,
+                IncentiveGenerationInterval = 1,
+                ShouldGenerateIncentives = false
             };
 
             InitVisitors(themePark);
