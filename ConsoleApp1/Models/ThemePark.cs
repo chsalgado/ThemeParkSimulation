@@ -27,7 +27,7 @@ namespace ConsoleApp1.Models
         /// </summary>
         public int NumberOfVisitors { get; set; }
 
-        public IList<Visitor> Visitors { get; set; }
+        public List<Visitor> Visitors { get; set; }
 
         public double TicketPrice { get; set; }
 

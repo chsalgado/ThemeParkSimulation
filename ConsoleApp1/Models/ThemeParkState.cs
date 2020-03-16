@@ -72,6 +72,9 @@ namespace ConsoleApp1.Models
                     // decrease the time left if he is in an attraction
                     // if he is in the queue, this shouldn't do anything
                     visitor.DecreaseTimeLeftInAttraction(1);
+                } else
+                {
+                    visitor.waitTime++;
                 }
 
             }
@@ -88,6 +91,7 @@ namespace ConsoleApp1.Models
                     {
                         visitorToOfferIncentiveTo.AcceptIncentive(offeredIncentive);
                         themePark.UsedIncentivesBudget += offeredIncentive.RealValue;
+                        //Console.WriteLine("Incentives accepted");
                     }
                 }
             }
@@ -102,6 +106,11 @@ namespace ConsoleApp1.Models
         public double GetFinalPayoff()
         {
             return themePark.Visitors.Sum(v => v.AccruedPayoff);
+        }
+
+        public int GetTotalWaitTime()
+        {
+            return themePark.Visitors.Sum(v => v.waitTime);
         }
     }
 }

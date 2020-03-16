@@ -57,6 +57,9 @@ namespace ConsoleApp1.Models
 
         public Point Location { get; set; }
 
+        public int waitTime = 0;
+        public bool enjoyingAttraction = false;
+
         /// <summary>
         /// Estimated wait time left in a queue in minutes
         /// </summary>
